@@ -27,10 +27,10 @@ data() {
 },
 methods: {
     formSubmit() {
-        const post = this.post;
-        post.id = this.generateID();
+        const post = this.preparePost(this.post)
         this.$emit('create', post);
         this.cleanPostValue();
+        console.log('date:', Date(1706125404125))
     },
 
     generateID(longest = 10) {
@@ -43,6 +43,11 @@ methods: {
             title: '',
             body: ''
         }
+    },
+    preparePost(post) {
+        post.id = this.generateID();
+        post.date = Date.now();
+        return post;
     }
 }
 }

@@ -1,15 +1,12 @@
 <template>
-<div class="posts">
-    <div class="posts-item" v-for="post in postList" :key="post.id">
-    <div class="posts-description">
-        <div><span class="font-bold">Название: </span> {{ post.title }}</div>
-        <div><span class="font-bold">Описание: </span>{{ post.body }}</div>
-    </div>
-    <div class="posts-buttons">
-        <action-button @click="removePost(post.id)">Удалить</action-button>
-    </div>
-    </div>
+<div v-if="postList.length > 0" class="posts">
+    <h4 class="posts-heading">Список задачей</h4>
+    <post-item 
+        v-for="post in postList" 
+        @remove="removePost"
+        :post="post"></post-item>
 </div>
+<div class="posts-empty" v-else>Список задачей пуст</div>
 </template>
 <script>
 export default {
@@ -34,8 +31,11 @@ export default {
 .posts {
     @apply flex flex-col gap-y-3 mt-4
 }
-.posts-item {
-    @apply flex justify-between items-center p-3 border-2 border-gray-400
+.posts-heading {
+    @apply text-3xl
+}
+.posts-empty {
+    @apply text-red-500 text-2xl
 }
 .post-list-item {
     display: inline-block;
