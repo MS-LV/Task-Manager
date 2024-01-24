@@ -1,0 +1,18 @@
+/* .header-link {
+  @apply dark:text-slate-200 inline-block py-3 px-2 border-b-2 border-transparent hover:border-purple-800 focus:outline-none focus:ring focus:ring-purple-300;
+}
+.header-buttons {
+  @apply dark:text-slate-200 py-1 px-3 border-2 rounded-full border-indigo-600 text-indigo-600 hover:text-white hover:bg-indigo-800 focus:outline-none focus:ring focus:ring-indigo-300;
+}
+.pagination-item {
+  @apply dark:text-slate-200 inline-block py-1 px-3 border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700
+}
+
+.footer-link {
+  @apply dark:text-slate-200 inline-block text-gray-500 py-2 hover:underline decoration-gray-700 underline-offset-2;
+} */
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+}
