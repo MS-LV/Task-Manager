@@ -1,11 +1,10 @@
 <template>
 <div class="app">
-<PostForm></PostForm>
+<post-form/>
 </div>
 </template>
 
 <script>
-import PostForm from './components/PostForm.vue';
 export default {
     data() {
         return {
@@ -14,9 +13,6 @@ export default {
     }, 
     methods: {
 
-    },
-    components: {
-    PostForm
     }
 }
 </script>

@@ -3,18 +3,14 @@
         <h4 class="text-3xl">Создание задач</h4>
         <input class="form-field" type="text" placeholder="Названия">
         <input class="form-field" type="text" placeholder="Описания">
-        <ActionButton class="self-end">Создать</ActionButton>
+        <action-button class="self-end">Создать</action-button>
     </form>
 </template>
 <script>
-import ActionButton from '../UI/ActionButton.vue'
 export default {
 name: 'post-form',
 data() {
     return {}
-},
-components: {
-    ActionButton
 }
 }
 </script>
