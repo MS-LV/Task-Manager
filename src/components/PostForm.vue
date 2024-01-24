@@ -41,7 +41,6 @@ methods: {
         const post = this.preparePost(this.post)
         this.$emit('create', post);
         this.cleanPostValue();
-        console.log('date:', Date(1706125404125))
     },
 
     generateID(longest = 10) {

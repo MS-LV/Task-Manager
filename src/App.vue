@@ -55,7 +55,6 @@ export default {
             this.dialogVisible = false;
         },
         removePost(id) {
-            console.log('remove', id);
             this.postList = this.postList.filter((post) => post.id !== id)
         },
         editPost(id) {
@@ -72,21 +71,18 @@ export default {
     },
     computed: {
         sortedPosts() {
+            if(isNaN(this.postList[0][this.selectedSort])) {
+                return [...this.postList].sort((postA, postB) => {
+                    return postA[this.selectedSort].localeCompare(postB[this.selectedSort]);
+                })
+            }
+
             return [...this.postList].sort((postA, postB) => {
-                // return postA[this.selectedSort].localeCompare(postB[this.selectedSort]);
                 return postA[this.selectedSort] >= postB[this.selectedSort] ? 1 : -1;
             })
         }
     },
     watch: {
-        selectedSort(newValue) {
-            // console.log('new value: ', newValue)
-            // console.log('postList', this.postList);
-            // this.postList.sort((post1, post2) => {
-            //     // return post1[newValue]?.localeCompare(post2[newValue]);
-            //     return post1[this.selectedSort] >= post2[this.selectedSort] ? 1 : -1;
-            // })
-        },
         dialogVisible(isVisible) {
             if(!isVisible) {
                 this.editPostData = null;
