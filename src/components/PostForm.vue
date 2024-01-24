@@ -1,16 +1,49 @@
 <template>
-    <form @submit.prevent class="form">
+    <form @submit.prevent="formSubmit"  class="form">
         <h4 class="text-3xl">Создание задач</h4>
-        <input class="form-field" type="text" placeholder="Названия">
-        <input class="form-field" type="text" placeholder="Описания">
-        <action-button class="self-end">Создать</action-button>
+        <input 
+            class="form-field"
+            type="text"
+            v-model="post.title"
+            placeholder="Название">
+        <input 
+            class="form-field" 
+            type="text"
+            v-model="post.body"
+            placeholder="Описание">
+        <action-button type="submit" class="self-end">Создать</action-button>
     </form>
 </template>
 <script>
 export default {
 name: 'post-form',
 data() {
-    return {}
+    return {
+        post: {
+            title: '',
+            body: ''
+        }
+    }
+},
+methods: {
+    formSubmit() {
+        const post = this.post;
+        post.id = this.generateID();
+        this.$emit('create', post);
+        this.cleanPostValue();
+    },
+
+    generateID(longest = 10) {
+        const symbols = 'abcdefjhijklmnopqrstuvwxyz1234567890';
+        return symbols.split('').sort(() => Math.random() - .5).slice(0, longest).join('');
+    },
+
+    cleanPostValue() {
+        this.post = {
+            title: '',
+            body: ''
+        }
+    }
 }
 }
 </script>
