@@ -11,22 +11,33 @@
             type="text"
             v-model="post.body"
             placeholder="Описание">
-        <action-button type="submit" class="self-end">Создать</action-button>
+        <action-button type="submit" class="self-end">{{ this.actionName }}</action-button>
     </form>
 </template>
 <script>
 export default {
 name: 'post-form',
+props: {
+    editPost: {
+        type: Object
+    }
+},
 data() {
     return {
         post: {
             title: '',
             body: ''
-        }
+        },
+        actionName: this.editPost ? 'Изменить' : 'Создать'
     }
 },
 methods: {
     formSubmit() {
+        if(this.editPost) {
+            this.$emit('edited',  this.post);
+            this.cleanPostValue();
+            return
+        }
         const post = this.preparePost(this.post)
         this.$emit('create', post);
         this.cleanPostValue();
@@ -48,6 +59,11 @@ methods: {
         post.id = this.generateID();
         post.date = Date.now();
         return post;
+    }
+},
+mounted() {
+    if(this.editPost) {
+        this.post = this.editPost
     }
 }
 }

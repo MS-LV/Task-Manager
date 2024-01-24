@@ -1,10 +1,14 @@
 <template>
 <div v-if="postList.length > 0" class="posts">
     <h4 class="posts-heading">Список задачей</h4>
-    <post-item 
-        v-for="post in postList" 
-        @remove="removePost"
-        :post="post"></post-item>
+    <transition-group name="post-list">
+        <post-item 
+            v-for="post in postList"
+            :key="post.id"
+            @remove="$emit('remove', $event)"
+            @edit="editPost"
+            :post="post"></post-item>
+    </transition-group>
 </div>
 <div class="posts-empty" v-else>Список задачей пуст</div>
 </template>
@@ -21,9 +25,9 @@ export default {
         }
     },
     methods: {
-        removePost(id) {
-            this.$emit('remove', id);
-        }
+       editPost(event) {
+        this.$emit('edit', event)
+       }
     }
 }
 </script>
@@ -37,13 +41,15 @@ export default {
 .posts-empty {
     @apply text-red-500 text-2xl
 }
+
+/* list animation styles */
 .post-list-item {
     display: inline-block;
     margin-right: 10px;
 }
 
-.post-enter-active,
-.post-leave-active {
+.post-list-enter-active,
+.post-list-leave-active {
     transition: all 1s ease;
 }
 
@@ -51,5 +57,9 @@ export default {
 .post-list-leave-to {
     opacity: 0;
     transform: translateX(30px);
+}
+
+.post-list-move {
+    transition: transform .8s ease;
 }
 </style>

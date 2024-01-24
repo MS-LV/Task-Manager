@@ -5,7 +5,8 @@
         <div><span class="font-bold">Описание: </span>{{ post.body }}</div>
         <div><span class="font-bold">Дата: </span>{{ (new Date(post.date)).toLocaleString() }}</div>
     </div>
-    <div class="posts-buttons">
+    <div class="posts-buttons space-x-2">
+        <action-button @click="editPost(post.id)">Редактировать</action-button>
         <action-button @click="removePost(post.id)">Удалить</action-button>
     </div>
     </div>
@@ -22,12 +23,17 @@ export default {
         removePost(id) {
             this.$emit('remove', id);
         },
-
+        editPost(id) {
+            this.$emit('edit', id);
+        }
     }
 }
 </script>
 <style scoped>
 .posts-item {
-    @apply flex justify-between items-center p-3 border-2 border-gray-400
+    @apply flex justify-between items-center gap-x-3 p-3 border-2 border-gray-400
+}
+.posts-buttons {
+    @apply whitespace-nowrap
 }
 </style>
