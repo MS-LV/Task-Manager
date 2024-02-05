@@ -1,3 +1,31 @@
+<script setup>
+
+import {ref} from 'vue';
+import TodoListItem from './TodoListItem.vue';
+import TodoDialog from './TodoDialog.vue';
+import TodoForm from './TodoForm.vue';
+import { useSortTask } from '../hooks/useSortTask';
+
+const {tasks, sortBy, sortedTasks } = useSortTask();
+
+const isDialogVisible = ref(false);
+
+function createTask(newTask) {
+    tasks.value.push(newTask);
+    isDialogVisible.value = false;
+}
+
+function updateTask(newTask){
+    const iUpdateTask = tasks.value.findIndex((task) => task.id === newTask.id);
+    const updatedTask = tasks.value.splice(iUpdateTask, 1, newTask);
+}
+
+function deleteTask(id) {
+    const iDeleteTask = tasks.value.findIndex((task) => task.id === id);
+    tasks.value.splice(iDeleteTask, 1);
+}
+</script>
+
 <template>
     <main class="flex-1 overflow-hidden p-4">
         <div>
@@ -16,22 +44,22 @@
                 <div class="w-1/5">Remove</div>
             </div>
             <transition-group name="post-list">
-            <todo-list-item 
+            <TodoListItem 
                 v-for="task of sortedTasks"
                 :key="task.id"
                 @updateTask="updateTask"
                 @deleteTask="deleteTask"
                 :task="task"
-            ></todo-list-item>
+            ></TodoListItem>
             </transition-group>
         </div>
 
-    <todo-dialog
+    <TodoDialog
         @close="isDialogVisible = $event"
         :is-visible="isDialogVisible"
     >
-        <todo-form @create-task="createTask"></todo-form>
-    </todo-dialog>
+        <TodoForm @create-task="createTask"></TodoForm>
+    </TodoDialog>
     </main>
     <footer 
     class="sticky bottom-0 p-4"
@@ -45,39 +73,6 @@
         </button>
     </footer>
 </template>
-<script>
-import { useSortTask } from '../hooks/useSortTask';
-export default {
-    data() {
-        return {
-            isDialogVisible: false,
-        }
-    },
-    methods: {
-        createTask(newTask) {
-            this.tasks.push(newTask);
-            this.isDialogVisible = false;
-        },
-        updateTask(newTask){
-            const iUpdateTask = this.tasks.findIndex((task) => task.id === newTask.id);
-            const updatedTask = this.tasks.splice(iUpdateTask, 1, newTask);
-        },
-        deleteTask(id) {
-            const iDeleteTask = this.tasks.findIndex((task) => task.id === id);
-            this.tasks.splice(iDeleteTask, 1);
-        }
-    },
-    setup() {
-      const {tasks, sortBy, sortedTasks } = useSortTask();
-      return {
-        tasks,
-        sortBy,
-        sortedTasks
-      }
-    },
-    name: 'todo-list'
-}
-</script>
 <style scoped>
     /* list animation styles */
 .post-list-item {

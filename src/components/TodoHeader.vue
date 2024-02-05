@@ -1,3 +1,6 @@
+<script setup>
+</script>
+
 <template lang="">
     <header class="sticky top-0 flex items-center justify-between p-4 bg-slate-500">
       <svg class="w-7 h-7" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -7,11 +10,6 @@
       <div class="w-7 h-7"></div>
     </header>
 </template>
-<script>
-export default {
-  name: 'todo-header'
-}
-</script>
-<style lang="">
-    
+
+<style>
 </style>

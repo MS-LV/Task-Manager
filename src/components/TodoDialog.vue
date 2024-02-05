@@ -1,3 +1,17 @@
+<script setup>
+import {defineProps, defineEmits} from 'vue';
+
+const props = defineProps({
+    isVisible: {
+        type: Boolean,
+        default: false
+    }
+});
+const emits = defineEmits({
+    close: Boolean
+});
+</script>
+
 <template>
     <div v-if="isVisible"
     @click="$emit('close', false)"
@@ -9,24 +23,6 @@
         </div>
     </div>
 </template>
-<script>
-export default {
-    data() {
-        return {
 
-        }
-    },
-    props: {
-        isVisible: {
-            type: Boolean,
-            default: false
-        },
-    },
-    emits: {
-        close: {type: Boolean}
-    },
-    name: 'todo-dialog'
-}
-</script>
 <style>
 </style>

@@ -1,12 +1,15 @@
+<script setup>
+import TodoHeader from './components/TodoHeader.vue';
+import TodoList from './components/TodoList.vue';
+</script>
+
 <template>
   <div class="flex flex-col w-screen min-h-screen space-y-4 max-w-screen-lg mx-auto text-white">
-    <todo-header></todo-header>
-    <todo-list></todo-list>
+    <TodoHeader></TodoHeader>
+    <TodoList></TodoList>
   </div>
 </template>
-<script>
 
-</script>
 <style scope>
   
 </style>

@@ -1,3 +1,32 @@
+<script setup>
+import { onMounted, getCurrentInstance } from 'vue';
+import { useCreateTask } from '../hooks/useCreateTask'
+
+// input & output
+const props = defineProps({
+    editTask: {type: Object}
+});
+const emits = defineEmits({createTask: Object});
+const {emit} = getCurrentInstance();
+
+
+const {post} = useCreateTask();
+
+const headerTitle = props?.editTask  ? 'Update Task': 'Create New Task';
+const submitTitle = props?.editTask ? 'Update' : 'Create';
+
+function submitForm() {
+    emit('createTask', post.value);
+}
+
+onMounted(() => {
+    if (props.editTask) {
+        post.value = Object.assign({}, props.editTask);
+    }
+});
+
+</script>
+
 <template>
     <form 
     class="flex flex-col"
@@ -14,43 +43,7 @@
         type="submit">{{ submitTitle }}</button>
     </form>        
 </template>
-<script>
-import {useCreateTask} from '../hooks/useCreateTask';
 
-export default {
-    data() {
-        return {
-            headerTitle: this.editTask  ? 'Update Task': 'Create New Task',
-            submitTitle: this.editTask ? 'Update' : 'Create'
-        }
-    },
-    emits: {
-        createTask: {type: Object},
-    },
-    props: {
-        editTask: {
-            type: Object
-        }
-    },
-    methods: {
-        submitForm() {
-            this.$emit('createTask', this.post);
-        }
-    },
-    setup(props, ctx) {
-        const {post} = useCreateTask();
-        return {
-            post
-        }
-    },
-    mounted() {
-        if(this.editTask) {
-            this.post = Object.assign({}, this.editTask);
-        }
-    },
-    name: 'todo-form'
-}
-</script>
 <style>
     
 </style>

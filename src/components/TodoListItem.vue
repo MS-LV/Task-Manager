@@ -1,3 +1,24 @@
+<script setup>
+import {ref, getCurrentInstance} from 'vue';
+import TodoForm from './TodoForm.vue';
+import TodoDialog from './TodoDialog.vue';
+
+const { emit } = getCurrentInstance();
+
+const isDialogVisible = ref(false);
+const props = defineProps({
+    task: {type: Object}
+});
+const emits = defineEmits(['updateTask', 'deleteTask']);
+function updateTask(updatedTask) {
+    isDialogVisible.value = false;
+    emit('updateTask', updatedTask);
+}
+function deleteTask() {
+    emit('deleteTask', props.task.id);
+}
+</script>
+
 <template>
     <div class="flex justify-between px-2 py-4 border-b border-gray-400 bg-white">
             <div class="w-3/5">{{ task.body }}</div>
@@ -17,41 +38,15 @@
                 </svg>
             </div>
 
-            <todo-dialog
-            @close="isDialogVisible = $event"
-            :isVisible="isDialogVisible">
-                <todo-form
-                @createTask="createTask"
-                :editTask="task"></todo-form>
-            </todo-dialog>
+            <TodoDialog
+                @close="isDialogVisible = $event"
+                :isVisible="isDialogVisible">
+                <TodoForm
+                    @createTask="updateTask"
+                    :editTask="task"></TodoForm>
+            </TodoDialog>
         </div>
 </template>
-<script>
-export default {
-    data() {
-        return {
-            isDialogVisible: false,
-        }
-    },
-    props: {
-        task: {type: Object}
-    },
-    emits: {
-        updateTask: {type: Object},
-        deleteTask: {type: [Number, String]}
-    },
-    methods: {
-        createTask(event) {
-            this.isDialogVisible = false;
-            this.$emit('updateTask', event);
-        },
-        deleteTask() {
-            this.$emit('deleteTask', this.task.id);
-        }
-    },
-    name: 'todo-list-item'
-}
-</script>
 <style>
     
 </style>

@@ -7,7 +7,7 @@ module.exports = {
       template: {
         compilerOptions: {
           isCustomElement: (tag) => {
-            return tag.startsWith('post') // (return true)
+            return tag.startsWith('Todo') // (return true)
           }
         }
       }
