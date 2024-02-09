@@ -1,4 +1,2 @@
-import VFocus from './VFocus';
-export default [
-    VFocus
-]
+import VFocus from "./VFocus";
+export default [VFocus];
