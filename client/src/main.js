@@ -1,19 +1,13 @@
-import { createApp } from 'vue';
-import directives from './directives';
-import App from './App.vue';
-import './index.css';
-import router from './router/router';
-import { createPinia } from 'pinia'
-// import store from './store';
+import { createApp } from "vue";
+import App from "@/App.vue";
+import router from "@/router";
+import { createPinia } from "pinia";
+import vuetify from "@/plugins/vuetify";
+import { loadFonts } from "@/plugins/webfontloader";
+import "./index.css";
 
-const app = createApp(App);
 const pinia = createPinia();
 
-directives.forEach(directive => {
-    app.directive(directive.name, directive);
-})
-app
-// .use(store)
-.use(pinia)
-.use(router)
-.mount('#app');
+loadFonts();
+
+createApp(App).use(router).use(pinia).use(vuetify).mount("#app");

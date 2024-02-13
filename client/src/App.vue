@@ -1,16 +1,18 @@
 <script setup>
-import UserHeader from './components/UserHeader.vue';
-import {verifyUser} from './hooks/useAuthorization';
-const firstUpdateUser = verifyUser();
+// import UserHeader from "@/components/UserHeader.vue";
+// import { ref } from "vue";
+// import { useTheme} from 'vuetify'
+import { verifyUser } from "@/hooks/useAuthorization";
+verifyUser();
+
+
+
 </script>
 
 <template>
-  <div class="flex flex-col w-screen min-h-screen h-screen space-y-4 max-w-screen-lg mx-auto text-white">
-    <UserHeader></UserHeader>
-    <RouterView></RouterView>
-  </div>
+  <v-app>
+    <router-view />
+  </v-app>
 </template>
 
-<style scope>
-  
-</style>
+<style scope></style>
