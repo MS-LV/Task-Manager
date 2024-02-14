@@ -10,14 +10,15 @@ const fields = ref([
   { name: "Email", type: "email", icon: "/icons/email.svg", value: "" },
   { name: "Password", type: "password", icon: "/icons/lock.svg", value: "" },
 ]);
+const userName = ref('');
+const email = ref('');
+const password = ref('');
 
 function submitForm() {
-  const formValues = fields.value.map((field) => field.value);
-  const [name, email, password] = formValues;
   const body = {
-    name,
-    email,
-    password,
+    name: userName.value,
+    email: email.value,
+    password: password.value,
   };
   const url = rootConfigs.signUP;
   authUser(url, body);
@@ -34,16 +35,18 @@ function submitForm() {
         <h1 class="text-purple-700 text-3xl text-center">
           Create Account
         </h1>
-        <!-- <h3 >Fill the input areas with you personal datas</h3> -->
-        <div
-          v-for="field of fields"
-          :key="field.value"
-        >
-          <CustomInput
-            v-model="field.value"
-            :field="field"
-          />
-        </div>
+        <CustomInput
+          v-model="userName"
+          :field="fields[0]"
+        />
+        <CustomInput
+          v-model="email"
+          :field="fields[1]"
+        />
+        <CustomInput
+          v-model="password"
+          :field="fields[2]"
+        />
         <div class="flex justify-between items-center cursor-pointer mt-4">
           <div
             class="text-purple-800 hover:underline"

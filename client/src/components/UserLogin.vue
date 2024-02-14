@@ -9,12 +9,12 @@ const fields = ref([
   { name: "Email", type: "email", icon: "/icons/email.svg", value: "" },
   { name: "Password", type: "password", icon: "/icons/lock.svg", value: "" },
 ]);
+const email = ref('');
+const password = ref('');
 function submitForm() {
-  const formValues = fields.value.map((field) => field.value);
-  const [email, password] = formValues;
   const body = {
-    email,
-    password,
+    email: email.value,
+    password: password.value,
   };
   const url = rootConfigs.signIn;
   authUser(url, body);
@@ -31,11 +31,13 @@ function submitForm() {
         <h1 class="text-purple-700 text-3xl text-center">
           LogIn
         </h1>
+        <CustomInput 
+          v-model="email"
+          :field="fields[0]"
+        />
         <CustomInput
-          v-for="field of fields"
-          :key="field.value"
-          v-model="field.value"
-          :field="field"
+          v-model="password" 
+          :field="fields[1]"
         />
         <div class="flex justify-between items-center cursor-pointer mt-4">
           <div
