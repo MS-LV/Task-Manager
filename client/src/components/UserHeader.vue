@@ -1,27 +1,26 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useTheme} from 'vuetify'
-// import router from "@/router";
-// import { logoutUser } from "../hooks/useAuthorization";
+import router from "@/router";
+import { logoutUser, verifyUser } from "@/hooks/useAuthorization";
 
-// function logout() {
-//   logoutUser();
-//   router.push("/");
-// }
 const drawer = ref(false);
-const theme = useTheme()
-const menu_items = [
-  {
+const theme = useTheme();
+const isAuth = ref(false);
+const protectedMenuItems = [
+{
     id: 0,
     name: "Home",
-    url: "/",
+    url: "/home",
   },
   {
     id: 3,
     name: "Dashboard",
     url: "/dashboard"
   },
-  {
+];
+const publicMenuItems = [
+{
     id: 1,
     name: "Registration",
     url: "/registration",
@@ -29,13 +28,30 @@ const menu_items = [
   {
     id: 2,
     name: "LogIn",
-    url: "login",
+    url: "/login",
   },
-];
+]
+const menu_items = ref([]);
 function changeTheme() {
   const isDarkMode = theme.global.name.value == "dark"
   theme.global.name.value = isDarkMode ? "light" : "dark";
 }
+
+async function logout() {
+  await logoutUser()
+  await isVerifyUser();
+  router.push("/login");
+}
+async function isVerifyUser() {
+  isAuth.value = await verifyUser();
+  if(!isAuth.value) {
+    menu_items.value = publicMenuItems;
+    return;
+  }
+  menu_items.value = protectedMenuItems;
+
+}
+onMounted(isVerifyUser);
 </script>
 
 <template>
@@ -61,6 +77,14 @@ function changeTheme() {
             {{ item.name }}
           </v-list-item-title>
         </v-list-item>
+        <v-list-item v-if="isAuth">
+          <v-list-item-title
+            class="hover:cursor-pointer"
+            @click="logout"
+          >
+            Logout
+          </v-list-item-title>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -84,6 +108,9 @@ function changeTheme() {
           @click="$router.push(menu.url)"
         >
           {{ menu.name }}
+        </v-btn>
+        <v-btn @click="logout" v-if="isAuth">
+          logout
         </v-btn>
         <v-btn @click="changeTheme">
           <v-icon

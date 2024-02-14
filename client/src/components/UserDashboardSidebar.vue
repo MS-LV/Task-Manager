@@ -122,7 +122,7 @@ const drawer = ref(null);
     <div class="flex-1 flex flex-col justify-end">
       <v-btn
         color="primary"
-        @click="$router.push('/')"
+        @click="$router.back()"
       >
         Exit
       </v-btn>

@@ -8,7 +8,7 @@ export async function authUser(url, body) {
   const accessToken = request.data.accessToken;
   saveAccessToken(accessToken);
   verifyUser();
-  router.push("/");
+  router.push("/home");
   return request;
 }
 
@@ -18,7 +18,7 @@ export async function verifyUser() {
     const url = rootConfigs.verifyUser;
     const accessToken = sessionStorage.getItem("accessToken");
     if (!accessToken) {
-      return;
+      return false;
     }
     let request = await axios.get(url, {
       headers: {
@@ -27,7 +27,7 @@ export async function verifyUser() {
     });
 
     store.setUserInfo(request.data);
-    return request;
+    return true;
   } catch (e) {
     refreshUser();
   }
@@ -49,6 +49,7 @@ export async function logoutUser() {
   await axios.get(url, { withCredentials: true });
   sessionStorage.clear();
   store.setUserInfo({ name: "", email: "" });
+  return true;
 }
 
 function saveAccessToken(accessToken) {
