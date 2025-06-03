@@ -1,7 +1,40 @@
-# Vue 3 + Vite
+# ✅ MegaTask — продвинутый Todo List на Vue 3
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+**MegaTask** — это современный и функциональный Task Manager, разработанный на **Vue 3**.  
+Проект был реализован в рамках стажировки в компании **Мегафон** и демонстрирует полный стек возможностей по управлению задачами.
 
-## Recommended IDE Setup
+---
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## 🚀 Основные возможности
+
+- 📝 Создание, редактирование и удаление задач (CRUD)
+- 🔍 Поиск по задачам
+- 📂 Сортировка и фильтрация
+- 🗂️ Группировка по статусу выполнения
+- 🧠 Чистая архитектура и разделение по компонентам
+
+---
+
+## 🧰 Используемые технологии
+
+- **Vue 3** (Composition API)
+- **Vue Router**
+- **Pinia** — управление состоянием
+- **SCSS** — стилизация
+- **Vite** — сборка и запуск проекта
+- **GitHub Pages** — деплой
+- **GitHub Actions** — автоматический CI/CD
+
+---
+
+// ## 📸 Скриншоты
+
+---
+
+## 📦 Установка и запуск
+
+```bash
+git clone https://github.com/MS-LV/megafon-todo-list.git
+cd megafon-todo-list
+npm install
+npm run dev
