@@ -34,7 +34,7 @@
 ## 📦 Установка и запуск
 
 ```bash
-git clone https://github.com/MS-LV/megafon-todo-list.git
-cd megafon-todo-list
+git clone https://github.com/MS-LV/Task-Manager.git
+cd Task-Manager
 npm install
 npm run dev
